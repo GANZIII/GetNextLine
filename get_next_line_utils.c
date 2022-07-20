@@ -6,7 +6,7 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:45:58 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/18 16:02:23 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/20 21:09:47 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char	*end(int s, char *b, char *big)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*little;
+	int		i;
+	char	*new;
 
-	*(b + s) = 0;
-	little = ft_strdup(b);
-	big = ft_strjoin(big, little);
-	free(little);
-	return ((char *)big);
+	new = (char *)s;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return (new + i);
+		i++;
+	}
+	if (c == 0)
+		return (new + i);
+	return (0);
 }
