@@ -6,13 +6,11 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:51:45 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/20 21:09:42 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/21 10:41:35 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 999999
-#include <stdio.h>
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -28,6 +26,21 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
+char	*enterinline(char **line, char **backup)
+{
+	*backup = ft_strdup(ft_strchr(*line, '\n') + 1);
+	*(ft_strchr(*line, '\n') + 1) = 0;
+	return (*line);
+}
+
+char	*enterinbuf(char **line, char **backup, char (*buf)[BUFFER_SIZE + 1])
+{
+	*backup = ft_strdup(ft_strchr(*buf, '\n') + 1);
+	*(ft_strchr(buf[0], '\n') + 1) = 0;
+	*line = ft_strjoin(*line, buf[0]);
+	return (*line);
+}
+
 char    *get_next_line(int fd)
 {
 	char static	*backup;
@@ -41,40 +54,16 @@ char    *get_next_line(int fd)
 		line = ft_strjoin("", backup);
 	while (1)
 	{
-		if (r == -1)
-			return (0);
 		ft_bzero(buf, BUFFER_SIZE);
 		if (ft_strchr(line, '\n'))
-		{
-			backup = ft_strdup(ft_strchr(line, '\n') + 1);
-			*(ft_strchr(line, '\n') + 1) = 0;
-			return (line);
-		}
+			return (enterinline(&line, &backup));
 		r = read(fd, buf, BUFFER_SIZE);
+		if (r < 0)
+			return (NULL);
 		if (r == 0)
-		{
-			*backup = 0;
 			return (line);
-		}
 		if (ft_strchr(buf, '\n'))
-		{
-			backup = ft_strdup(ft_strchr(buf, '\n') + 1);
-			*(ft_strchr(buf, '\n') + 1) = 0;	
-			line = ft_strjoin(line, buf);
-			return (line);
-		}
+			return (enterinbuf(&line, &backup, &buf));
 		line = ft_strjoin(line, buf);
 	}
-}
-
-int	main(void)
-{
-	int fd = open("./hello.txt", O_RDONLY);
-	for (int i = 0; i < 11; i++)
-	{
-		char	*str = get_next_line(fd);
-		printf("(%d) str : %s",i,  str);
-	}
-	close(fd);
-	return (0);
 }
