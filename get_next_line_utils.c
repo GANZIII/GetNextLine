@@ -6,11 +6,19 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:45:58 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/20 21:09:47 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/21 13:34:03 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ex(int r, char **line)
+{
+	if (r < 0)
+		return (0);
+	else if (r == 0)
+		return (*line);
+}
 
 unsigned long	ft_strlen(const char *str)
 {

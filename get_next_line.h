@@ -6,7 +6,7 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:49:17 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/21 10:41:39 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/21 13:35:01 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ char	*ft_strchr(const char *s, int c);
 void	ft_bzero(void *s, size_t n);
 char	*enterinline(char **line, char **backup);
 char	*enterinbuf(char **line, char **backup, char (*buf)[BUFFER_SIZE + 1]);
+char	*ex(int r, char **line);
+void	ft_free(char **line, char **backup);
 
 #endif
