@@ -6,7 +6,7 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:51:45 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/21 13:35:00 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/23 01:30:08 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,53 +28,59 @@ void	ft_bzero(void *s, size_t n)
 
 char	*enterinline(char **line, char **backup)
 {
+	if (ft_strlen(*backup))
+		free(*backup);
 	*backup = ft_strdup(ft_strchr(*line, '\n') + 1);
 	*(ft_strchr(*line, '\n') + 1) = 0;
 	return (*line);
 }
 
-char	*enterinbuf(char **line, char **backup, char (*buf)[BUFFER_SIZE + 1])
+char	*enterinbuf(char **line, char (*buf)[BUFFER_SIZE + 1])
 {
 	char	*ret;
 
-	*backup = ft_strdup(ft_strchr(*buf, '\n') + 1);
 	*(ft_strchr(buf[0], '\n') + 1) = 0;
 	ret = ft_strjoin(*line, buf[0]);
 	free(*line);
 	return (ret);
 }
 
-void	ft_free(char **line, char **backup)
+char	*ft_free(char **li, char **backup)
 {
-	char	*temp;
+	char	*line;
 
-	temp = *line;
-	*line = ft_strjoin("", *backup);
-	free(temp);
+	line = ft_strjoin(*li, *backup);
+	// free backup?
+//	free(*backup);
+	free(*li);
+	ft_bzero(*backup, ft_strlen(*backup));
+	return (line);
 }
 
 char    *get_next_line(int fd)
 {
-	char static	*backup;
+	static char *backup;
    	char		buf[BUFFER_SIZE + 1];
 	int			r;
 	char		*line;
 	char		*temp;
 
-	buf[BUFFER_SIZE] = 0;
 	line = ft_strdup("");
 	if (backup)
-		ft_free(&line, &backup);
+		line = ft_free(&line, &backup);
 	while (1)
 	{
-		ft_bzero(buf, BUFFER_SIZE);
+		ft_bzero(buf, BUFFER_SIZE + 1);
 		if (ft_strchr(line, '\n'))
 			return (enterinline(&line, &backup));
 		r = read(fd, buf, BUFFER_SIZE);
 		if (r <= 0)
 			return (ex(r, &line));
 		if (ft_strchr(buf, '\n'))
-			return (enterinbuf(&line, &backup, &buf));
+		{
+			backup = ft_strdup(ft_strchr(buf, '\n') + 1);
+			return (enterinbuf(&line, &buf));
+		}
 		temp = line;
 		line = ft_strjoin(line, buf);
 		free(temp);

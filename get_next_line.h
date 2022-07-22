@@ -6,7 +6,7 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:49:17 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/21 13:35:01 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/23 01:30:34 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+// #define BUFFER_SIZE 42
 
 char    *get_next_line(int fd);
 unsigned long	ft_strlen(const char *str);
@@ -23,8 +24,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 void	ft_bzero(void *s, size_t n);
 char	*enterinline(char **line, char **backup);
-char	*enterinbuf(char **line, char **backup, char (*buf)[BUFFER_SIZE + 1]);
+char	*enterinbuf(char **line, char (*buf)[BUFFER_SIZE + 1]);
 char	*ex(int r, char **line);
-void	ft_free(char **line, char **backup);
+char	*ft_free(char **li, char **backup);
 
 #endif
