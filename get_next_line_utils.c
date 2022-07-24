@@ -6,29 +6,11 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:45:58 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/24 14:37:00 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/24 22:43:32 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ex(int r, char **line)
-{
-	if (r < 0)
-	{
-		free(*line);
-		return (0);
-	}
-	else
-	{
-		if (ft_strlen(*line) == 0)
-		{
-			//free(*line);
-			return (0);
-		}
-		return (*line);
-	}
-}
 
 unsigned long	ft_strlen(const char *str)
 {
@@ -38,6 +20,35 @@ unsigned long	ft_strlen(const char *str)
 	while (str[i] != 0)
 		i++;
 	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char				*res;
+	long unsigned int	idx;
+
+	if (start >= ft_strlen(s))
+	{
+		res = (char *)malloc(1);
+		if (res == 0)
+			return (0);
+		*res = 0;
+		return (res);
+	}
+	if (len <= ft_strlen(s))
+		res = (char *)malloc(len + 1);
+	else
+		res = (char *)malloc(ft_strlen(s) + 1);
+	if (res == 0)
+		return (0);
+	idx = 0;
+	while (idx < len && s[start + idx])
+	{
+		res[idx] = s[start + idx];
+		idx++;
+	}
+	res[idx] = 0;
+	return (res);
 }
 
 char	*ft_strdup(const char *src)
