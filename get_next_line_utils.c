@@ -6,7 +6,7 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:45:58 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/23 01:31:49 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/24 14:37:00 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ex(int r, char **line)
 	{
 		if (ft_strlen(*line) == 0)
 		{
-			free(*line);
+			//free(*line);
 			return (0);
 		}
 		return (*line);
@@ -59,6 +59,7 @@ char	*ft_strdup(const char *src)
 		i++;
 	}
 	dst[i] = 0;
+	//free((char *)src);
 	return (dst);
 }
 

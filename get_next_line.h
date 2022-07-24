@@ -6,7 +6,7 @@
 /*   By: jijoo <jijoo@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:49:17 by jijoo             #+#    #+#             */
-/*   Updated: 2022/07/23 01:30:34 by jijoo            ###   ########.fr       */
+/*   Updated: 2022/07/24 14:55:45 by jijoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-// #define BUFFER_SIZE 42
+//#define BUFFER_SIZE 2
 
 char    *get_next_line(int fd);
 unsigned long	ft_strlen(const char *str);
